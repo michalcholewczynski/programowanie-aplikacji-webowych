@@ -1,8 +1,13 @@
+import Navbar from "./components/Navbar"
+
 function App() {
   return (
-    <div clsasName="container mt-4">
-      <h1>Galeria zdjęć</h1>
-    </div>
+    <>
+      <Navbar/>
+      <div classsName="container mt-4">
+        <h1>Galeria zdjęć</h1>
+      </div>
+    </>
   )
 }
 
