@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar"
 import CategoryBar from "./components/CategoryBar"
 import Gallery from "./components/Gallery"
 import Footer from "./components/Footer"
+import AddPhotoModal from "./components/AddPhotoModal"
 
 function App() {
   return (
@@ -25,7 +26,7 @@ function App() {
                 Filtry
               </button>
               <button type="button" className="btn btn-primary"
-                data-bs-toggle="modal" data-bs-target="">
+                data-bs-toggle="modal" data-bs-target="#dodajZdjecie">
                   Dodaj zdjęcie
               </button>
             </div>
@@ -40,6 +41,8 @@ function App() {
       </main>
 
       <Footer />
+
+      <AddPhotoModal />
     </>
   )
 }
