@@ -1,4 +1,4 @@
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route, Link, useParams } from 'react-router-dom'
 import { wydarzenia } from './wydarzenia.js'
 import { useState } from 'react'
 
@@ -65,8 +65,16 @@ function ListaWydarzenPage() {
 }
 
 function SzczegolyWydarzeniaPage() {
+  const { id } = useParams();
+  const wydarzenie = wydarzenia.find(w => w.id === Number(id))
+
   return (
-    <div className="container mt-4">Szczegóły wydarzenia (do zrobienia)</div>
+    <div className="container mt-4">
+      <h1>{wydarzenie.nazwa}</h1>
+      <p>Miasto: {wydarzenie.miasto}</p>
+      <p>Data: {wydarzenie.data}</p>
+      <p>Cena: {wydarzenie.cena === 0 ? "Wstęp wolny" : `${wydarzenia.cena} zł`}</p>
+    </div>
   )
 }
 
