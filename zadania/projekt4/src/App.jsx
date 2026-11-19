@@ -1,4 +1,4 @@
-import { Routes, Route, Link, useParams } from 'react-router-dom'
+import { Routes, Route, Link, useParams, useNavigate } from 'react-router-dom'
 import { wydarzenia } from './wydarzenia.js'
 import { useState } from 'react'
 
@@ -31,10 +31,10 @@ function ListaWydarzenPage() {
               id={`miasto-${miasto}`}
               checked={aktywneMiasta.includes(miasto)}
               onChange={() => przelaczMiasto(miasto)}
-              />
-              <div className="form-check-label" htmlFor={`miasto-${miasto}`}>
-                {miasto}
-              </div>
+            />
+            <div className="form-check-label" htmlFor={`miasto-${miasto}`}>
+              {miasto}
+            </div>
           </div>
         ))}
       </div>
@@ -66,6 +66,7 @@ function ListaWydarzenPage() {
 
 function SzczegolyWydarzeniaPage() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const wydarzenie = wydarzenia.find(w => w.id === Number(id))
 
   if (!wydarzenie) {
@@ -74,6 +75,9 @@ function SzczegolyWydarzeniaPage() {
         <div className="alert alert-warning">
           Nie znaleziono wydarzenia o numerze {id}
         </div>
+        <button type="button" className="btn btn-outline-secondary" onClick={() => navigate(-1)}>
+          Wstecz
+        </button>
       </div>
     )
   }
@@ -83,7 +87,19 @@ function SzczegolyWydarzeniaPage() {
       <h1>{wydarzenie.nazwa}</h1>
       <p>Miasto: {wydarzenie.miasto}</p>
       <p>Data: {wydarzenie.data}</p>
-      <p>Cena: {wydarzenie.cena === 0 ? "Wstęp wolny" : `${wydarzenia.cena} zł`}</p>
+      <p>Cena: {wydarzenie.cena === 0 ? "Wstęp wolny" : `${wydarzenie.cena} zł`}</p>
+      <button type="button" className="btn btn-outline-secondary" onClick={() => navigate(-1)}>
+        Wstecz
+      </button>
+    </div>
+  )
+}
+
+function PageNotFound() {
+  return (
+    <div className="container mt-4">
+      <h1>Nie ma takiej strony</h1>
+      <Link to="/">Wróć do listy</Link>
     </div>
   )
 }
@@ -93,6 +109,7 @@ export default function App() {
     <Routes>
       <Route path="/" element={<ListaWydarzenPage />} />
       <Route path="/wydarzenie/:id" element={<SzczegolyWydarzeniaPage />} />
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   )
 }
