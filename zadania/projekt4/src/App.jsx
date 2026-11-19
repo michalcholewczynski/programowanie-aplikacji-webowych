@@ -68,6 +68,16 @@ function SzczegolyWydarzeniaPage() {
   const { id } = useParams();
   const wydarzenie = wydarzenia.find(w => w.id === Number(id))
 
+  if (!wydarzenie) {
+    return (
+      <div className="container mt-4">
+        <div className="alert alert-warning">
+          Nie znaleziono wydarzenia o numerze {id}
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="container mt-4">
       <h1>{wydarzenie.nazwa}</h1>
