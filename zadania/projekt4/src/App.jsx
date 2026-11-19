@@ -31,7 +31,7 @@ function ListaWydarzenPage() {
     )
 }
 
-function ListaWydarzenPage() {
+function SzczegolyWydarzeniaPage() {
   return (
     <div className="container mt-4">Szczegóły wydarzenia (do zrobienia)</div>
   )
@@ -39,10 +39,9 @@ function ListaWydarzenPage() {
 
 export default function App() {
   return (
-    <>
-      <div className="container mt-4">
-        <h1>Wydarzenia i koncerty</h1>
-      </div>
-    </>
+    <Routes>
+      <Route path="/" element={<ListaWydarzenPage />}/>
+      <Route path="/wydarzenie/:id" element={<SzczegolyWydarzeniaPage/>} />
+    </Routes>
   )
 }
