@@ -1,34 +1,67 @@
 import { Routes, Route, Link } from 'react-router-dom'
 import { wydarzenia } from './wydarzenia.js'
+import { useState } from 'react'
+
+const MIASTA = [...new Set(wydarzenia.map(w => w.miasto))]
 
 function ListaWydarzenPage() {
-    return (
-      <div className="container mt-4">
-        <h1>Wydarzenia i koncerty</h1>
+  const [aktywneMiasta, setAktywneMiasta] = useState(MIASTA)
 
-        <div className="row g-3">
-          {
-            wydarzenia.map(wydarzenie => (
-              <div key={wydarzenie.id} className="col-12 col-md-4">
-                <div className="card h-100">
-                  <div className="card-body">
-                    <h3 className="card-title h5">
-                      {wydarzenie.nazwa}
-                    </h3>
-                    <p className="text-body-secondary mb-2">
-                      {wydarzenie.miasto} - {wydarzenie.data}
-                    </p>
-                    <Link to={`/wydarzenie/${wydarzenie.id}`} className="btn btn-outline-primary btm-sm">
-                      Szczegóły
-                    </Link>
-                  </div>
+  function przelaczMiasto(miasto) {
+    setAktywneMiasta(aktywne =>
+      aktywne.includes(miasto)
+        ? aktywne.filter(m => m !== miasto)
+        : [...aktywne, miasto]
+    )
+  }
+
+  const widoczne = wydarzenia.filter(w => aktywneMiasta.includes(w.miasto))
+
+  return (
+    <div className="container mt-4">
+      <h1>Wydarzenia i koncerty</h1>
+
+      <div className="d-flex flex-wrap gap-3 mb-3">
+        {MIASTA.map(miasto => (
+          <div className="form-check form-switch" key={miasto}>
+            <input
+              className="form-check-input"
+              type="checkbox"
+              role="switch"
+              id={`miasto-${miasto}`}
+              checked={aktywneMiasta.includes(miasto)}
+              onChange={() => przelaczMiasto(miasto)}
+              />
+              <div className="form-check-label" htmlFor={`miasto-${miasto}`}>
+                {miasto}
+              </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="row g-3">
+        {
+          widoczne.map(wydarzenie => (
+            <div key={wydarzenie.id} className="col-12 col-md-4">
+              <div className="card h-100">
+                <div className="card-body">
+                  <h3 className="card-title h5">
+                    {wydarzenie.nazwa}
+                  </h3>
+                  <p className="text-body-secondary mb-2">
+                    {wydarzenie.miasto} - {wydarzenie.data}
+                  </p>
+                  <Link to={`/wydarzenie/${wydarzenie.id}`} className="btn btn-outline-primary btm-sm">
+                    Szczegóły
+                  </Link>
                 </div>
               </div>
-            ))
-          }
-        </div>
+            </div>
+          ))
+        }
       </div>
-    )
+    </div>
+  )
 }
 
 function SzczegolyWydarzeniaPage() {
@@ -40,8 +73,8 @@ function SzczegolyWydarzeniaPage() {
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<ListaWydarzenPage />}/>
-      <Route path="/wydarzenie/:id" element={<SzczegolyWydarzeniaPage/>} />
+      <Route path="/" element={<ListaWydarzenPage />} />
+      <Route path="/wydarzenie/:id" element={<SzczegolyWydarzeniaPage />} />
     </Routes>
   )
 }
