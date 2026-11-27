@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import 'bootstrap'
 
 export default function App() {
   return (
