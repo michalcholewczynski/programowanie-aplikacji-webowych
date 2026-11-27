@@ -24,6 +24,31 @@ function App() {
     wczytaj()
   }, [])
 
+  if (isLoading) {
+    return (
+      <div className="container mt-4">
+        <div className="spinner-border" role="status" />
+        <span className="ms-2">Ładowanie...</span>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="container mt-4">
+        <div className="alert alert-danger">{error}</div>
+      </div>
+    )
+  }
+
+  if (rowery.length === 0) {
+    return (
+      <div className="container mt-4">
+        <div className="alert alert-secondary">Brak rowerów</div>
+      </div>
+    )
+  }
+
   return (
     <div className="container mt-4">
       <h1>Wypożyczalnia rowerów</h1>
