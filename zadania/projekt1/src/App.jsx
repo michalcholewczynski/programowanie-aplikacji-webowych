@@ -40,6 +40,10 @@ export default function App() {
         ))}
       </div>
 
+      <p className="text-body-secondary">
+        Wyświetlono {widoczne.length} z {ksiazki.length} książek
+      </p>
+
       <div className="row g-3">
         {widoczne.map(ksiazka => (
           <div key={ksiazka.id} className="col-12 col-md-4">
