@@ -21,6 +21,14 @@ function App() {
     }
 
     setBladCzasu('')
+
+    const noweId = Math.max(...przepisy.map(p => p.id)) + 1
+    setPrzepisy([
+      ...przepisy,
+      { id: noweId, nazwa, kategoria: 'inne', czas: Number(czas) },
+    ])
+    setNazwa('')
+    setCzas('')
   }
 
   return (
