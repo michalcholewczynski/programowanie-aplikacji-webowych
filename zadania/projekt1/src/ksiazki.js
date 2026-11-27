@@ -1,4 +1,4 @@
-export const ksiazkistartowe = [
+export const ksiazkiStartowe = [
     {
         id: 1, tytul: 'Lalka', autor: 'Bolesław Prus', gatunek:
             'powieść', dostepna: true, ulubiona: false
