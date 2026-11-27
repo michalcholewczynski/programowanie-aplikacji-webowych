@@ -1,15 +1,43 @@
 import { useState } from 'react'
 import { ksiazkiStartowe } from './ksiazki.js'
 
+const GATUNKI = [...new Set(ksiazkiStartowe.map(k => k.gatunek))]
+
 export default function App() {
   const [ksiazki, setKsiazki] = useState(ksiazkiStartowe)
+  const [aktywnyGatunek, setAktywnyGatunek] = useState('wszystkie')
+
+  const widoczne =
+    aktywnyGatunek === 'wszystkie'
+      ? ksiazki
+      : ksiazki.filter(k => k.gatunek === aktywnyGatunek)
 
   return (
     <div className="container mt-4">
       <h1>Katalog biblioteki</h1>
 
+      <div className="d-flex flex-wrap gap-2 mb-3">
+        <button
+          type="button"
+          className={`btn btn-outline-primary${aktywnyGatunek === 'wszystkie' ? ' active' : ''}`}
+          onClick={() => setAktywnyGatunek('wszystkie')}
+        >
+          Wszystkie
+        </button>
+        {GATUNKI.map(gatunek => (
+          <button
+            key={gatunek}
+            type="button"
+            className={`btn btn-outline-primary${aktywnyGatunek === gatunek ? ' active' : ''}`}
+            onClick={() => setAktywnyGatunek(gatunek)}
+          >
+            {gatunek}
+          </button>
+        ))}
+      </div>
+
       <div className="row g-3">
-        {ksiazki.map(ksiazka => (
+        {widoczne.map(ksiazka => (
           <div key={ksiazka.id} className="col-12 col-md-4">
             <div className="card h-100">
               <div className="card-body">
