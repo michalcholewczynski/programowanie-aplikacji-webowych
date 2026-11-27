@@ -39,10 +39,13 @@ export default function App() {
       <div className="row g-3">
         {widoczne.map(ksiazka => (
           <div key={ksiazka.id} className="col-12 col-md-4">
-            <div className="card h-100">
+            <div className={`card h-100 ${ksiazka.dostepna ? 'border-success' : 'border-danger'}`}>
               <div className="card-body">
                 <h3 className="card-title h5">{ksiazka.tytul}</h3>
                 <p className="text-body-secondary mb-1">{ksiazka.autor}</p>
+                <span className={`badge text-bg-${ksiazka.dostepna ? 'success' : 'danger'}`}>
+                  {ksiazka.dostepna ? 'Dostępna' : 'Wypożyczona'}
+                </span>
               </div>
             </div>
           </div>
