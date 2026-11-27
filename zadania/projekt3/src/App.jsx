@@ -29,6 +29,10 @@ function App() {
     rower.model.toLowerCase().includes(szukaj.toLowerCase())
   )
 
+  function usun(id) {
+    setRowery(rowery.filter(rower => rower.id !== id))
+  }
+
   if (isLoading) {
     return (
       <div className="container mt-4">
@@ -76,6 +80,15 @@ function App() {
               <div className="card-body">
                 <h3 className="card-title h5">{rower.model}</h3>
                 <span className="badge text-bg-secondary">{rower.typ}</span>
+                <div>
+                  <button
+                    type="button"
+                    className="btn btn-outline-danger btn-sm"
+                    onClick={() => usun(rower.id)}
+                  >
+                    Usuń
+                  </button>
+                </div>
               </div>
             </div>
           </div>
